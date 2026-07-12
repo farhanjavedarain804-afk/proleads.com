@@ -3,11 +3,11 @@ import mysql from 'mysql2/promise';
 import * as schema from './schema';
 
 const connection = mysql.createPool({
-  host: '127.0.0.1',
-  port: 3306,
-  user: 'u749853029_prouser',
-  password: 'M-husnain@393393',
-  database: 'u749853029_pro',
+  host: process.env.DB_HOST || '127.0.0.1',
+  port: Number(process.env.DB_PORT) || 3306,
+  user: process.env.DB_USER || 'u749853029_prouser',
+  password: process.env.DB_PASSWORD || 'M-husnain@393393',
+  database: process.env.DB_NAME || 'u749853029_pro',
 });
 
 export const db = drizzle(connection, { schema, mode: 'default' });
