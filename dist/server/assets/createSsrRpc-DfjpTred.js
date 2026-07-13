@@ -1,4 +1,4 @@
-import { t as getServerFnById } from "./__23tanstack-start-server-fn-resolver-B95lO8D4.js";
+import { t as getServerFnById } from "./__23tanstack-start-server-fn-resolver-CuUpY8N3.js";
 import { d as TSS_SERVER_FUNCTION } from "./createServerFn-CIHAFgYl.js";
 //#region node_modules/@tanstack/start-server-core/dist/esm/createSsrRpc.js
 var createSsrRpc = (functionId) => {

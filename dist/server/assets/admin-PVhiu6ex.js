@@ -1,4 +1,4 @@
-import { o as useSiteSettings, r as useIsAdmin } from "./use-admin-data-Chku8Dys.js";
+import { o as useSiteSettings, r as useIsAdmin } from "./use-admin-data-B0r3MH-a.js";
 import { useState } from "react";
 import { Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { jsx, jsxs } from "react/jsx-runtime";

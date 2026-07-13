@@ -1,6 +1,6 @@
 import { d as TSS_SERVER_FUNCTION } from "./createServerFn-CIHAFgYl.js";
 import { drizzle } from "drizzle-orm/mysql2";
-import mysql from "mysql2/promise";
+import { createPool } from "mysql2/promise";
 import { boolean, int, json, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 //#region \0rolldown/runtime.js
 var __defProp = Object.defineProperty;
@@ -117,12 +117,17 @@ var users = mysqlTable("users", {
 	createdAt: timestamp("created_at").notNull().defaultNow(),
 	updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow()
 });
-var db = drizzle(mysql.createPool({
+var db = drizzle(createPool({
 	host: process.env.DB_HOST || "127.0.0.1",
 	port: Number(process.env.DB_PORT) || 3306,
 	user: process.env.DB_USER || "u749853029_prouser",
 	password: process.env.DB_PASSWORD || "M-husnain@393393",
-	database: process.env.DB_NAME || "u749853029_pro"
+	database: process.env.DB_NAME || "u749853029_pro",
+	waitForConnections: true,
+	connectionLimit: 10,
+	queueLimit: 0,
+	enableKeepAlive: true,
+	keepAliveInitialDelay: 0
 }), {
 	schema: schema_exports,
 	mode: "default"
