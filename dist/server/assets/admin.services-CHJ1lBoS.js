@@ -1,4 +1,4 @@
-import { C as upsertService, a as useServices, m as deleteService } from "./use-admin-data-B0r3MH-a.js";
+import { C as upsertService, a as useServices, m as deleteService } from "./use-admin-data-Ik71BfQt.js";
 import { n as getIcon, t as ICON_NAMES } from "./icon-map-DfNldbji.js";
 import { useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";

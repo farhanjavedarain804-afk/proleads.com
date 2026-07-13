@@ -1,4 +1,4 @@
-import { a as useServices, o as useSiteSettings } from "./use-admin-data-B0r3MH-a.js";
+import { a as useServices, o as useSiteSettings } from "./use-admin-data-Ik71BfQt.js";
 import { t as logo_default } from "./logo-DQUycLDj.js";
 import { Link } from "@tanstack/react-router";
 import { jsx, jsxs } from "react/jsx-runtime";
