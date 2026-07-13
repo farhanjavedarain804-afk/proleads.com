@@ -1,6 +1,6 @@
 import { t as createServerFn } from "./createServerFn-CIHAFgYl.js";
-import { t as createSsrRpc } from "./createSsrRpc-CYxIGD9i.js";
-import { r as useIsAdmin } from "./use-admin-data-Cbnxa5qJ.js";
+import { t as createSsrRpc } from "./createSsrRpc-NCdGnZMB.js";
+import { r as useIsAdmin } from "./use-admin-data-BfFtiaUr.js";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { isRedirect, useNavigate, useRouter } from "@tanstack/react-router";
