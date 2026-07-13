@@ -6,32 +6,67 @@ import { eq, asc, desc } from "drizzle-orm";
 // ─── READ FUNCTIONS ───────────────────────────────────────────────────────────
 
 export const getSiteSettings = createServerFn({ method: "GET" }).handler(async () => {
-  const result = await db.select().from(schema.siteSettings).limit(1);
-  return result[0] || null;
+  try {
+    const result = await db.select().from(schema.siteSettings).limit(1);
+    return result[0] || null;
+  } catch (err) {
+    console.error("[DB] getSiteSettings failed:", err);
+    return null;
+  }
 });
 
 export const getServices = createServerFn({ method: "GET" }).handler(async () => {
-  return await db.select().from(schema.services).orderBy(asc(schema.services.sortOrder));
+  try {
+    return await db.select().from(schema.services).orderBy(asc(schema.services.sortOrder));
+  } catch (err) {
+    console.error("[DB] getServices failed:", err);
+    return [];
+  }
 });
 
 export const getReviews = createServerFn({ method: "GET" }).handler(async () => {
-  return await db.select().from(schema.reviews).orderBy(asc(schema.reviews.sortOrder));
+  try {
+    return await db.select().from(schema.reviews).orderBy(asc(schema.reviews.sortOrder));
+  } catch (err) {
+    console.error("[DB] getReviews failed:", err);
+    return [];
+  }
 });
 
 export const getFaqs = createServerFn({ method: "GET" }).handler(async () => {
-  return await db.select().from(schema.faqs).orderBy(asc(schema.faqs.sortOrder));
+  try {
+    return await db.select().from(schema.faqs).orderBy(asc(schema.faqs.sortOrder));
+  } catch (err) {
+    console.error("[DB] getFaqs failed:", err);
+    return [];
+  }
 });
 
 export const getStates = createServerFn({ method: "GET" }).handler(async () => {
-  return await db.select().from(schema.coverageStates).orderBy(asc(schema.coverageStates.sortOrder));
+  try {
+    return await db.select().from(schema.coverageStates).orderBy(asc(schema.coverageStates.sortOrder));
+  } catch (err) {
+    console.error("[DB] getStates failed:", err);
+    return [];
+  }
 });
 
 export const getCities = createServerFn({ method: "GET" }).handler(async () => {
-  return await db.select().from(schema.coverageCities).orderBy(asc(schema.coverageCities.sortOrder));
+  try {
+    return await db.select().from(schema.coverageCities).orderBy(asc(schema.coverageCities.sortOrder));
+  } catch (err) {
+    console.error("[DB] getCities failed:", err);
+    return [];
+  }
 });
 
 export const getSubmissions = createServerFn({ method: "GET" }).handler(async () => {
-  return await db.select().from(schema.contactSubmissions).orderBy(desc(schema.contactSubmissions.createdAt));
+  try {
+    return await db.select().from(schema.contactSubmissions).orderBy(desc(schema.contactSubmissions.createdAt));
+  } catch (err) {
+    console.error("[DB] getSubmissions failed:", err);
+    return [];
+  }
 });
 
 // ─── CONTACT SUBMISSIONS ──────────────────────────────────────────────────────

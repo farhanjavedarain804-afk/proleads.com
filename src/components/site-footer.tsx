@@ -5,7 +5,7 @@ import { useSiteSettings, useServices } from "@/hooks/use-admin-data";
 import logo from "@/assets/logo.png";
 
 export function SiteFooter() {
-  const { phone: PHONE, phone_tel: PHONE_TEL } = useSiteSettings();
+  const { phone: PHONE, phoneTel: PHONE_TEL } = useSiteSettings();
   const { data: dbServices } = useServices();
   const servicesList = dbServices && dbServices.length > 0 ? dbServices : SERVICES.map((s) => ({ id: s.slug, title: s.title }));
   return (
@@ -74,7 +74,7 @@ export function SiteFooter() {
 }
 
 export function CtaBanner() {
-  const { phone: PHONE, phone_tel: PHONE_TEL } = useSiteSettings();
+  const { phone: PHONE, phoneTel: PHONE_TEL } = useSiteSettings();
   return (
     <section className="relative overflow-hidden bg-brand text-brand-foreground">
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:grid-cols-[1fr_auto] sm:items-center sm:py-20">

@@ -16,7 +16,7 @@ const NAV = [
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { phone, phone_tel: PHONE_TEL } = useSiteSettings();
+  const { phone, phoneTel: PHONE_TEL } = useSiteSettings();
   const PHONE = phone;
 
   return (
