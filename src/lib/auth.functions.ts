@@ -1,17 +1,26 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getEvent, getCookie, setCookie, deleteCookie } from "vinxi/http";
 import { db } from "../db";
 import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 import { createRequire } from "module";
 
-// bcryptjs is a pure-CJS package — use createRequire to bypass ESM interop issues
+// createRequire is only used on the server side (inside handler bodies)
+// Module-level usage is needed only for bcrypt since it's a pure-CJS package
 const _require = createRequire(import.meta.url);
 const bcrypt = _require("bcryptjs") as typeof import("bcryptjs");
+
+/** Get the current H3 event + cookie helpers via dynamic import so that
+ *  vinxi/http is NEVER included in the client-side bundle. */
+async function vinxi() {
+  // Dynamic import keeps this out of the browser bundle — TanStack Start's
+  // Vite plugin extracts handler bodies to the server bundle only.
+  return import("vinxi/http");
+}
 
 // ─── checkAuth ────────────────────────────────────────────────────────────────
 export const checkAuth = createServerFn({ method: "GET" }).handler(async () => {
   try {
+    const { getEvent, getCookie } = await vinxi();
     const event = getEvent();
     const sessionId = getCookie(event, "admin_session");
     if (!sessionId) return { ok: false as const, error: "Not authenticated" };
@@ -23,7 +32,6 @@ export const checkAuth = createServerFn({ method: "GET" }).handler(async () => {
       .limit(1);
 
     if (!rows.length) return { ok: false as const, error: "User not found" };
-
     return { ok: true as const, user: { id: rows[0].id, email: rows[0].email } };
   } catch (e: any) {
     console.error("[checkAuth]", e?.message);
@@ -54,7 +62,8 @@ export const login = createServerFn({ method: "POST" })
       const match = await bcrypt.compare(data.password, user.passwordHash);
       if (!match) throw new Error("Invalid credentials");
 
-      // Set the session cookie on the H3 response
+      // Set the session cookie via dynamic import — server bundle only
+      const { getEvent, setCookie } = await vinxi();
       const event = getEvent();
       setCookie(event, "admin_session", user.id, {
         httpOnly: true,
@@ -74,6 +83,7 @@ export const login = createServerFn({ method: "POST" })
 // ─── logout ───────────────────────────────────────────────────────────────────
 export const logout = createServerFn({ method: "POST" }).handler(async () => {
   try {
+    const { getEvent, deleteCookie } = await vinxi();
     const event = getEvent();
     deleteCookie(event, "admin_session", { path: "/" });
   } catch (e: any) {

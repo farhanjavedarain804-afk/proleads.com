@@ -1,4 +1,4 @@
-import { _ as markSubmissionRead, c as useSubmissions, g as deleteSubmission } from "./use-admin-data-B_aNsoCk.js";
+import { _ as markSubmissionRead, c as useSubmissions, g as deleteSubmission } from "./use-admin-data-Z5b7w1-W.js";
 import { useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { useQueryClient } from "@tanstack/react-query";

@@ -1,5 +1,5 @@
 import { t as logo_default } from "./logo-DQUycLDj.js";
-import { n as login, t as checkAuth } from "./auth.functions-CfKmj7KX.js";
+import { n as login, t as checkAuth } from "./auth.functions-DVSjue4P.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { jsx, jsxs } from "react/jsx-runtime";
