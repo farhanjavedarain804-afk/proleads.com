@@ -239,8 +239,8 @@ var Route$19 = createRootRouteWithContext()({
 			},
 			{
 				rel: "icon",
-				href: "/favicon.ico",
-				type: "image/x-icon"
+				href: "/favicon.svg",
+				type: "image/svg+xml"
 			},
 			{
 				rel: "preconnect",
