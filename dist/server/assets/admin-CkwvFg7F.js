@@ -52,7 +52,7 @@ var NAV = [
 ];
 function AdminShell() {
 	const path = useRouterState({ select: (s) => s.location.pathname });
-	const navigate = useNavigate();
+	useNavigate();
 	const settings = useSiteSettings();
 	const { data: admin } = useIsAdmin();
 	const [open, setOpen] = useState(false);
@@ -63,15 +63,15 @@ function AdminShell() {
 		try {
 			await logout();
 		} catch {}
+		localStorage.removeItem("admin_session_active");
 		toast.success("Signed out");
-		navigate({ to: "/auth" });
-		setSigningOut(false);
+		window.location.href = "/auth";
 	}
 	return /* @__PURE__ */ jsxs("div", {
 		className: "min-h-screen bg-slate-50",
 		children: [
 			/* @__PURE__ */ jsxs("aside", {
-				className: `fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`,
+				className: `fixed isolate inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`,
 				children: [
 					/* @__PURE__ */ jsxs("div", {
 						className: "flex h-16 items-center justify-between border-b border-slate-200 px-5",

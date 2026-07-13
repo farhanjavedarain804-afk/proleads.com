@@ -786,7 +786,7 @@ var Route$12 = createFileRoute("/contact")({
 });
 //#endregion
 //#region src/routes/auth.tsx
-var $$splitComponentImporter$11 = () => import("./auth-Bgm8q3oO.js");
+var $$splitComponentImporter$11 = () => import("./auth-C-ipgWLn.js");
 var Route$11 = createFileRoute("/auth")({
 	head: () => ({ meta: [{ title: "Admin Sign In — ProLeadsGeneration" }, {
 		name: "robots",
@@ -801,10 +801,13 @@ var Route$10 = createFileRoute("/_authenticated")({
 	ssr: false,
 	beforeLoad: async ({ cause }) => {
 		if (typeof window !== "undefined") {
-			if (document.cookie.split(";").some((c) => c.trim().startsWith("admin_session="))) return {
+			const hasCookie = document.cookie.split(";").some((c) => c.trim().startsWith("admin_session="));
+			const hasStorage = localStorage.getItem("admin_session_active") === "true";
+			if (hasCookie || hasStorage) return {
 				userId: "session_active",
 				email: null
 			};
+			throw redirect({ to: "/auth" });
 		}
 		try {
 			const auth = await checkAuth();
@@ -901,7 +904,7 @@ var Route$9 = createFileRoute("/")({
 });
 //#endregion
 //#region src/routes/_authenticated/admin.tsx
-var $$splitComponentImporter$8 = () => import("./admin-CV9vi59O.js");
+var $$splitComponentImporter$8 = () => import("./admin-CkwvFg7F.js");
 var Route$8 = createFileRoute("/_authenticated/admin")({
 	head: () => ({ meta: [{ title: "Admin — ProLeadsGeneration" }, {
 		name: "robots",

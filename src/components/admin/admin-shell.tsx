@@ -34,18 +34,19 @@ export function AdminShell() {
     try {
       await logout();
     } catch {
-      // ignore — we always redirect
+      // ignore
     }
+    // Remove local storage flag on sign out
+    localStorage.removeItem("admin_session_active");
     toast.success("Signed out");
-    navigate({ to: "/auth" });
-    setSigningOut(false);
+    window.location.href = "/auth";
   }
 
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform lg:translate-x-0 ${
+        className={`fixed isolate inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >

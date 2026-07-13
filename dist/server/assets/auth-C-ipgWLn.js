@@ -14,9 +14,15 @@ function AuthPage() {
 	const [loading, setLoading] = useState(false);
 	const [checking, setChecking] = useState(true);
 	useEffect(() => {
+		if (localStorage.getItem("admin_session_active") === "true") {
+			window.location.href = "/admin";
+			return;
+		}
 		checkAuth().then((auth) => {
-			if (auth?.ok) window.location.href = "/admin";
-			else setChecking(false);
+			if (auth?.ok) {
+				localStorage.setItem("admin_session_active", "true");
+				window.location.href = "/admin";
+			} else setChecking(false);
 		}).catch(() => {
 			setChecking(false);
 		});
@@ -30,6 +36,7 @@ function AuthPage() {
 				email,
 				password
 			} }))?.ok) throw new Error("Login failed. Please check your credentials.");
+			localStorage.setItem("admin_session_active", "true");
 			toast.success("Signed in successfully!");
 			window.location.href = "/admin";
 		} catch (err) {

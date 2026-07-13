@@ -4,14 +4,15 @@ import { checkAuth } from "@/lib/auth.functions";
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
   beforeLoad: async ({ cause }) => {
-    // Check if we are running in the browser
+    // If running in browser context, check for session flag in localStorage as well to guarantee login verification
     if (typeof window !== "undefined") {
-      // Synchronously verify browser cookies
       const hasCookie = document.cookie.split(";").some((c) => c.trim().startsWith("admin_session="));
-      if (hasCookie) {
-        // If cookie is present, allow execution of page logic and skip RPC checks
+      const hasStorage = localStorage.getItem("admin_session_active") === "true";
+      
+      if (hasCookie || hasStorage) {
         return { userId: "session_active", email: null };
       }
+      throw redirect({ to: "/auth" });
     }
 
     try {

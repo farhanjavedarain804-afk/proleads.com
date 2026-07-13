@@ -25,10 +25,16 @@ function AuthPage() {
 
   // On mount: if already logged in, redirect to admin
   useEffect(() => {
+    const hasStorage = localStorage.getItem("admin_session_active") === "true";
+    if (hasStorage) {
+      window.location.href = "/admin";
+      return;
+    }
+
     checkAuth()
       .then((auth) => {
         if (auth?.ok) {
-          // Use full reload so the authenticated route guard sees the session cookie
+          localStorage.setItem("admin_session_active", "true");
           window.location.href = "/admin";
         } else {
           setChecking(false);
@@ -46,11 +52,14 @@ function AuthPage() {
     try {
       const auth = await login({ data: { email, password } });
       if (!auth?.ok) throw new Error("Login failed. Please check your credentials.");
+      
+      // Save session flag explicitly in local storage
+      localStorage.setItem("admin_session_active", "true");
+      
       toast.success("Signed in successfully!");
       // Full page reload so the new session cookie is available to the server
       window.location.href = "/admin";
     } catch (err: any) {
-      // Show a clean message — never expose raw error objects
       const msg =
         typeof err?.message === "string" && err.message.length < 200
           ? err.message
