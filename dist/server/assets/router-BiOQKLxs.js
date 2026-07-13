@@ -800,6 +800,9 @@ var $$splitComponentImporter$10 = () => import("./route-Di7iQBCH.js");
 var Route$10 = createFileRoute("/_authenticated")({
 	ssr: false,
 	beforeLoad: async ({ cause }) => {
+		if (typeof window !== "undefined") {
+			if (!document.cookie.split(";").some((c) => c.trim().startsWith("admin_session="))) throw redirect({ to: "/auth" });
+		}
 		try {
 			const auth = await checkAuth();
 			if (!auth || !auth.ok) throw redirect({ to: "/auth" });
