@@ -16,7 +16,7 @@ const HOST = process.env.HOST || "0.0.0.0";
 async function start() {
   try {
     // Load the built Nitro server handler from the dist output
-    const serverPath = path.join(__dirname, "dist", "server", "server.js");
+    const serverPath = "./dist/server/server.js";
     const { default: handler } = await import(serverPath);
 
     const server = createServer(async (req, res) => {

@@ -1,0 +1,15 @@
+# ProLeadsGeneration
+
+> Nationwide home services network connecting U.S. homeowners with certified HVAC, plumbing, roofing, pest control, electrical, and garage door pros. 24/7 emergency dispatch with a 45-minute average response time.
+
+ProLeadsGeneration operates as a single point of contact for booking vetted, licensed, and insured home service professionals across all 50 U.S. states. Every job is backed by upfront flat-rate pricing and a 5-year workmanship warranty.
+
+## Pages
+
+- [Home](/): Overview of services, coverage, guarantees, process, and featured reviews.
+- [Services](/services): Twelve home service trades — HVAC, plumbing, roofing, pest control, electrical, garage door, water damage, appliance repair and more.
+- [Coverage](/coverage): Nationwide service map across all 50 states and 480+ metro areas.
+- [Why Us](/why): Certifications, guarantees, workmanship warranty, and hiring standards.
+- [Reviews](/reviews): 4.9★ verified customer reviews with filters by service type.
+- [FAQ](/faq): Common questions on booking, pricing, warranties, and emergency response.
+- [Contact](/contact): 24/7 dispatch phone, regional office hours, and contact form.
