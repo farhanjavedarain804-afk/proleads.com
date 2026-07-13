@@ -1,5 +1,5 @@
 import { t as createServerFn } from "./createServerFn-CIHAFgYl.js";
-import { t as createSsrRpc } from "./createSsrRpc-DrZdxwqw.js";
+import { t as createSsrRpc } from "./createSsrRpc-CndIQOhp.js";
 import { useQuery } from "@tanstack/react-query";
 //#region src/lib/db.functions.ts
 var getSiteSettings = createServerFn({ method: "GET" }).handler(createSsrRpc("fd6e64b5f10846c33ddc7bab3c2731274572cf516391d28fc92b58a737e8e0a3"));

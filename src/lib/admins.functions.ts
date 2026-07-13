@@ -4,33 +4,38 @@ import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 import { createRequire } from "module";
 
-const _req = createRequire(import.meta.url);
-const bcrypt = _req("bcryptjs") as typeof import("bcryptjs");
+const _require = createRequire(import.meta.url);
+const bcrypt = _require("bcryptjs") as typeof import("bcryptjs");
 
 export const listAdmins = createServerFn({ method: "GET" }).handler(async () => {
-  const roles = await db.select().from(schema.userRoles);
-  const users = await db.select().from(schema.users);
+  try {
+    const roles = await db.select().from(schema.userRoles);
+    const users = await db.select().from(schema.users);
 
-  const byUser = new Map<string, string[]>();
-  for (const r of roles) {
-    const list = byUser.get(r.userId) ?? [];
-    list.push(r.role);
-    byUser.set(r.userId, list);
-  }
+    const byUser = new Map<string, string[]>();
+    for (const r of roles) {
+      const list = byUser.get(r.userId) ?? [];
+      list.push(r.role);
+      byUser.set(r.userId, list);
+    }
 
-  const admins: Array<{ user_id: string; email: string | null; roles: string[]; created_at: string | null }> = [];
-  for (const [userId, rs] of byUser.entries()) {
-    if (!rs.includes("admin") && !rs.includes("super_admin")) continue;
-    const user = users.find((u) => u.id === userId);
-    admins.push({
-      user_id: userId,
-      email: user?.email ?? null,
-      roles: rs,
-      created_at: user?.createdAt?.toISOString() ?? null,
-    });
+    const admins: Array<{ user_id: string; email: string | null; roles: string[]; created_at: string | null }> = [];
+    for (const [userId, rs] of byUser.entries()) {
+      if (!rs.includes("admin") && !rs.includes("super_admin")) continue;
+      const user = users.find((u) => u.id === userId);
+      admins.push({
+        user_id: userId,
+        email: user?.email ?? null,
+        roles: rs,
+        created_at: user?.createdAt?.toISOString() ?? null,
+      });
+    }
+    admins.sort((a, b) => (a.email ?? "").localeCompare(b.email ?? ""));
+    return admins;
+  } catch (err: any) {
+    console.error("[listAdmins] Error:", err?.message);
+    return [];
   }
-  admins.sort((a, b) => (a.email ?? "").localeCompare(b.email ?? ""));
-  return admins;
 });
 
 export const createAdmin = createServerFn({ method: "POST" })
@@ -40,23 +45,27 @@ export const createAdmin = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data }) => {
-    // Insert user (password_hash is placeholder — implement bcrypt in production)
-    const { v4: uuidv4 } = await import("uuid");
-    const userId = uuidv4();
-    const hash = await bcrypt.hash(data.password, 10);
-    await db.insert(schema.users).values({
-      id: userId,
-      email: data.email,
-      passwordHash: hash,
-    });
+    try {
+      const { v4: uuidv4 } = await import("uuid");
+      const userId = uuidv4();
+      const hash = await bcrypt.hash(data.password, 10);
+      await db.insert(schema.users).values({
+        id: userId,
+        email: data.email,
+        passwordHash: hash,
+      });
 
-    const rolesToInsert: Array<typeof schema.userRoles.$inferInsert> = [
-      { userId, role: "admin" },
-    ];
-    if (data.superAdmin) rolesToInsert.push({ userId, role: "super_admin" });
-    await db.insert(schema.userRoles).values(rolesToInsert);
+      const rolesToInsert: Array<typeof schema.userRoles.$inferInsert> = [
+        { userId, role: "admin" },
+      ];
+      if (data.superAdmin) rolesToInsert.push({ userId, role: "super_admin" });
+      await db.insert(schema.userRoles).values(rolesToInsert);
 
-    return { ok: true, user_id: userId };
+      return { ok: true, user_id: userId };
+    } catch (err: any) {
+      console.error("[createAdmin] Error:", err?.message);
+      throw new Error(err?.message || "Failed to create admin");
+    }
   });
 
 export const deleteAdmin = createServerFn({ method: "POST" })
@@ -65,9 +74,14 @@ export const deleteAdmin = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data }) => {
-    await db.delete(schema.userRoles).where(eq(schema.userRoles.userId, data.userId));
-    await db.delete(schema.users).where(eq(schema.users.id, data.userId));
-    return { ok: true };
+    try {
+      await db.delete(schema.userRoles).where(eq(schema.userRoles.userId, data.userId));
+      await db.delete(schema.users).where(eq(schema.users.id, data.userId));
+      return { ok: true };
+    } catch (err: any) {
+      console.error("[deleteAdmin] Error:", err?.message);
+      throw new Error(err?.message || "Failed to delete admin");
+    }
   });
 
 export const resetAdminPassword = createServerFn({ method: "POST" })
@@ -77,9 +91,14 @@ export const resetAdminPassword = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data }) => {
-    const hash = await bcrypt.hash(data.password, 10);
-    await db.update(schema.users)
-      .set({ passwordHash: hash })
-      .where(eq(schema.users.id, data.userId));
-    return { ok: true };
+    try {
+      const hash = await bcrypt.hash(data.password, 10);
+      await db.update(schema.users)
+        .set({ passwordHash: hash })
+        .where(eq(schema.users.id, data.userId));
+      return { ok: true };
+    } catch (err: any) {
+      console.error("[resetAdminPassword] Error:", err?.message);
+      throw new Error(err?.message || "Failed to reset password");
+    }
   });

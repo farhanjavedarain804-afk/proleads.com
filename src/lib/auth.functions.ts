@@ -4,42 +4,81 @@ import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 import { createRequire } from "module";
 
-// createRequire is only used on the server side (inside handler bodies)
-// Module-level usage is needed only for bcrypt since it's a pure-CJS package
 const _require = createRequire(import.meta.url);
+// Use require() so bcryptjs is loaded as pure CJS, bypassing ESM interop issues in the bundle
 const bcrypt = _require("bcryptjs") as typeof import("bcryptjs");
 
-/** Get the current H3 event + cookie helpers via dynamic import so that
- *  vinxi/http is NEVER included in the client-side bundle. */
-async function vinxi() {
-  // Dynamic import keeps this out of the browser bundle — TanStack Start's
-  // Vite plugin extracts handler bodies to the server bundle only.
-  return import("vinxi/http");
+// Helper: safely get H3 event — returns null if outside server request context
+function safeGetEvent() {
+  try {
+    // vinxi/http getEvent throws if called outside an H3 request context
+    const { getEvent } = _require("vinxi/http") as typeof import("vinxi/http");
+    const event = getEvent();
+    return event ?? null;
+  } catch {
+    return null;
+  }
 }
 
-// ─── checkAuth ────────────────────────────────────────────────────────────────
+// Helper: safely read a cookie — returns null if not in a server context
+function safeGetCookie(name: string): string | null {
+  try {
+    const event = safeGetEvent();
+    if (!event) return null;
+    const { getCookie } = _require("vinxi/http") as typeof import("vinxi/http");
+    return getCookie(event, name) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+// Helper: safely set a cookie — noop if not in a server context
+function safeSetCookie(name: string, value: string, options: Record<string, unknown>) {
+  try {
+    const event = safeGetEvent();
+    if (!event) return;
+    const { setCookie } = _require("vinxi/http") as typeof import("vinxi/http");
+    setCookie(event, name, value, options as any);
+  } catch {
+    // ignore
+  }
+}
+
+// Helper: safely delete a cookie — noop if not in a server context
+function safeDeleteCookie(name: string) {
+  try {
+    const event = safeGetEvent();
+    if (!event) return;
+    const { deleteCookie } = _require("vinxi/http") as typeof import("vinxi/http");
+    deleteCookie(event, name);
+  } catch {
+    // ignore
+  }
+}
+
 export const checkAuth = createServerFn({ method: "GET" }).handler(async () => {
   try {
-    const { getEvent, getCookie } = await vinxi();
-    const event = getEvent();
-    const sessionId = getCookie(event, "admin_session");
-    if (!sessionId) return { ok: false as const, error: "Not authenticated" };
+    const sessionUser = safeGetCookie("admin_session");
+    if (!sessionUser) return { ok: false as const, error: "Not authenticated" };
 
-    const rows = await db
-      .select({ id: schema.users.id, email: schema.users.email })
+    const userResult = await db
+      .select()
       .from(schema.users)
-      .where(eq(schema.users.id, sessionId))
+      .where(eq(schema.users.id, sessionUser))
       .limit(1);
 
-    if (!rows.length) return { ok: false as const, error: "User not found" };
-    return { ok: true as const, user: { id: rows[0].id, email: rows[0].email } };
+    if (!userResult.length) return { ok: false as const, error: "User not found" };
+
+    return {
+      ok: true as const,
+      user: { id: userResult[0].id, email: userResult[0].email },
+    };
   } catch (e: any) {
-    console.error("[checkAuth]", e?.message);
-    return { ok: false as const, error: "Session error" };
+    console.error("[checkAuth] Error:", e?.message);
+    return { ok: false as const, error: "Session check failed" };
   }
 });
 
-// ─── login ────────────────────────────────────────────────────────────────────
 export const login = createServerFn({ method: "POST" })
   .validator((data: unknown) => data as { email: string; password: string })
   .handler(async ({ data }) => {
@@ -48,46 +87,39 @@ export const login = createServerFn({ method: "POST" })
         throw new Error("Email and password are required");
       }
 
-      const rows = await db
+      const userResult = await db
         .select()
         .from(schema.users)
-        .where(eq(schema.users.email, data.email.trim().toLowerCase()))
+        .where(eq(schema.users.email, data.email))
         .limit(1);
 
-      if (!rows.length || !rows[0].passwordHash) {
-        throw new Error("Invalid credentials");
-      }
+      if (!userResult.length) throw new Error("Invalid credentials");
 
-      const user = rows[0];
-      const match = await bcrypt.compare(data.password, user.passwordHash);
-      if (!match) throw new Error("Invalid credentials");
+      const user = userResult[0];
+      if (!user.passwordHash) throw new Error("Invalid credentials");
 
-      // Set the session cookie via dynamic import — server bundle only
-      const { getEvent, setCookie } = await vinxi();
-      const event = getEvent();
-      setCookie(event, "admin_session", user.id, {
+      const isMatch = await bcrypt.compare(data.password, user.passwordHash);
+      if (!isMatch) throw new Error("Invalid credentials");
+
+      safeSetCookie("admin_session", user.id, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
         path: "/",
         maxAge: 60 * 60 * 24 * 7, // 7 days
       });
 
       return { ok: true as const, user: { id: user.id, email: user.email } };
     } catch (e: any) {
-      console.error("[login]", e?.message);
+      console.error("[login] Error:", e?.message);
       throw new Error(e?.message || "Login failed");
     }
   });
 
-// ─── logout ───────────────────────────────────────────────────────────────────
 export const logout = createServerFn({ method: "POST" }).handler(async () => {
   try {
-    const { getEvent, deleteCookie } = await vinxi();
-    const event = getEvent();
-    deleteCookie(event, "admin_session", { path: "/" });
-  } catch (e: any) {
-    console.error("[logout]", e?.message);
+    safeDeleteCookie("admin_session");
+  } catch {
+    // ignore
   }
   return { ok: true as const };
 });

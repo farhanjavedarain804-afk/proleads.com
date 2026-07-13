@@ -3,11 +3,41 @@ import { t as createServerFn } from "./createServerFn-CIHAFgYl.js";
 import { createRequire } from "module";
 import { eq } from "drizzle-orm";
 //#region src/lib/auth.functions.ts?tss-serverfn-split
-var bcrypt = createRequire(import.meta.url)("bcryptjs");
-/** Get the current H3 event + cookie helpers via dynamic import so that
-*  vinxi/http is NEVER included in the client-side bundle. */
-async function vinxi() {
-	return import("vinxi/http");
+var _require = createRequire(import.meta.url);
+var bcrypt = _require("bcryptjs");
+function safeGetEvent() {
+	try {
+		const { getEvent } = _require("vinxi/http");
+		return getEvent() ?? null;
+	} catch {
+		return null;
+	}
+}
+function safeGetCookie(name) {
+	try {
+		const event = safeGetEvent();
+		if (!event) return null;
+		const { getCookie } = _require("vinxi/http");
+		return getCookie(event, name) ?? null;
+	} catch {
+		return null;
+	}
+}
+function safeSetCookie(name, value, options) {
+	try {
+		const event = safeGetEvent();
+		if (!event) return;
+		const { setCookie } = _require("vinxi/http");
+		setCookie(event, name, value, options);
+	} catch {}
+}
+function safeDeleteCookie(name) {
+	try {
+		const event = safeGetEvent();
+		if (!event) return;
+		const { deleteCookie } = _require("vinxi/http");
+		deleteCookie(event, name);
+	} catch {}
 }
 var checkAuth_createServerFn_handler = createServerRpc({
 	id: "c742807c24d8cf24409ab05ee479814cabfe4b92c8f6ea72847513d368654c35",
@@ -16,32 +46,28 @@ var checkAuth_createServerFn_handler = createServerRpc({
 }, (opts) => checkAuth.__executeServer(opts));
 var checkAuth = createServerFn({ method: "GET" }).handler(checkAuth_createServerFn_handler, async () => {
 	try {
-		const { getEvent, getCookie } = await vinxi();
-		const sessionId = getCookie(getEvent(), "admin_session");
-		if (!sessionId) return {
+		const sessionUser = safeGetCookie("admin_session");
+		if (!sessionUser) return {
 			ok: false,
 			error: "Not authenticated"
 		};
-		const rows = await db.select({
-			id: users.id,
-			email: users.email
-		}).from(users).where(eq(users.id, sessionId)).limit(1);
-		if (!rows.length) return {
+		const userResult = await db.select().from(users).where(eq(users.id, sessionUser)).limit(1);
+		if (!userResult.length) return {
 			ok: false,
 			error: "User not found"
 		};
 		return {
 			ok: true,
 			user: {
-				id: rows[0].id,
-				email: rows[0].email
+				id: userResult[0].id,
+				email: userResult[0].email
 			}
 		};
 	} catch (e) {
-		console.error("[checkAuth]", e?.message);
+		console.error("[checkAuth] Error:", e?.message);
 		return {
 			ok: false,
-			error: "Session error"
+			error: "Session check failed"
 		};
 	}
 });
@@ -53,15 +79,14 @@ var login_createServerFn_handler = createServerRpc({
 var login = createServerFn({ method: "POST" }).validator((data) => data).handler(login_createServerFn_handler, async ({ data }) => {
 	try {
 		if (!data?.email || !data?.password) throw new Error("Email and password are required");
-		const rows = await db.select().from(users).where(eq(users.email, data.email.trim().toLowerCase())).limit(1);
-		if (!rows.length || !rows[0].passwordHash) throw new Error("Invalid credentials");
-		const user = rows[0];
+		const userResult = await db.select().from(users).where(eq(users.email, data.email)).limit(1);
+		if (!userResult.length) throw new Error("Invalid credentials");
+		const user = userResult[0];
+		if (!user.passwordHash) throw new Error("Invalid credentials");
 		if (!await bcrypt.compare(data.password, user.passwordHash)) throw new Error("Invalid credentials");
-		const { getEvent, setCookie } = await vinxi();
-		setCookie(getEvent(), "admin_session", user.id, {
+		safeSetCookie("admin_session", user.id, {
 			httpOnly: true,
 			secure: true,
-			sameSite: "lax",
 			path: "/",
 			maxAge: 3600 * 24 * 7
 		});
@@ -73,7 +98,7 @@ var login = createServerFn({ method: "POST" }).validator((data) => data).handler
 			}
 		};
 	} catch (e) {
-		console.error("[login]", e?.message);
+		console.error("[login] Error:", e?.message);
 		throw new Error(e?.message || "Login failed");
 	}
 });
@@ -84,11 +109,8 @@ var logout_createServerFn_handler = createServerRpc({
 }, (opts) => logout.__executeServer(opts));
 var logout = createServerFn({ method: "POST" }).handler(logout_createServerFn_handler, async () => {
 	try {
-		const { getEvent, deleteCookie } = await vinxi();
-		deleteCookie(getEvent(), "admin_session", { path: "/" });
-	} catch (e) {
-		console.error("[logout]", e?.message);
-	}
+		safeDeleteCookie("admin_session");
+	} catch {}
 	return { ok: true };
 });
 //#endregion

@@ -1,4 +1,4 @@
-import { t as getServerFnById } from "./__23tanstack-start-server-fn-resolver-Cqut9I-N.js";
+import { t as getServerFnById } from "./__23tanstack-start-server-fn-resolver-ulPa2f8G.js";
 import { a as runWithStartContext, c as FrameType, d as TSS_SERVER_FUNCTION, f as X_TSS_RAW_RESPONSE, i as getStartContext, l as TSS_CONTENT_TYPE_FRAMED_VERSIONED, n as flattenMiddlewares, o as createNullProtoObject, p as X_TSS_SERIALIZED, r as getStartOptions, s as safeObjectMerge, u as TSS_FORMDATA_CONTEXT } from "./createServerFn-CIHAFgYl.js";
 import { t as createMiddleware } from "./createMiddleware-B_4t7rW1.js";
 import "react";
@@ -1110,7 +1110,7 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-DvpQpMzi.js"),
+		import("./router-BYupjRSh.js"),
 		import("./start-DK-ph67u.js"),
 		import("./empty-plugin-adapters-D9UWiqvJ.js")
 	]);
