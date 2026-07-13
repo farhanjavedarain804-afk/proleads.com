@@ -1,5 +1,5 @@
-import { i as useReviews } from "./use-admin-data-LmRky6e6.js";
-import { n as PageHeader, t as CtaBanner } from "./site-footer-BK7h3OQP.js";
+import { i as useReviews } from "./use-admin-data-eMxb8KI8.js";
+import { n as PageHeader, t as CtaBanner } from "./site-footer-BAyCD3So.js";
 import { useMemo, useState } from "react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { ArrowRight, CheckCircle2, Quote, Star } from "lucide-react";

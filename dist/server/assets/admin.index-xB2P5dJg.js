@@ -1,4 +1,4 @@
-import { _ as markSubmissionRead, a as useServices, b as updateSubmission, c as useSubmissions, g as deleteSubmission, i as useReviews, n as useFaqs, s as useStates } from "./use-admin-data-LmRky6e6.js";
+import { _ as markSubmissionRead, a as useServices, b as updateSubmission, c as useSubmissions, g as deleteSubmission, i as useReviews, n as useFaqs, s as useStates } from "./use-admin-data-eMxb8KI8.js";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { jsx, jsxs } from "react/jsx-runtime";

@@ -1,4 +1,4 @@
-import { o as useSiteSettings, r as useIsAdmin, y as updateSiteSettings } from "./use-admin-data-LmRky6e6.js";
+import { o as useSiteSettings, r as useIsAdmin, y as updateSiteSettings } from "./use-admin-data-eMxb8KI8.js";
 import { useEffect, useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { useQueryClient } from "@tanstack/react-query";
