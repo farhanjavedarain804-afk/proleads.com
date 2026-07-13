@@ -801,7 +801,10 @@ var Route$10 = createFileRoute("/_authenticated")({
 	ssr: false,
 	beforeLoad: async ({ cause }) => {
 		if (typeof window !== "undefined") {
-			if (!document.cookie.split(";").some((c) => c.trim().startsWith("admin_session="))) throw redirect({ to: "/auth" });
+			if (document.cookie.split(";").some((c) => c.trim().startsWith("admin_session="))) return {
+				userId: "session_active",
+				email: null
+			};
 		}
 		try {
 			const auth = await checkAuth();
