@@ -23,6 +23,38 @@ async function start() {
     const server = createServer(async (req, res) => {
       const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
 
+      // Direct diagnostics endpoint to check database status and server code version
+      if (url.pathname === "/diagnostics") {
+        res.setHeader("Content-Type", "application/json");
+        try {
+          const mysql = require("mysql2/promise");
+          const pool = mysql.createPool({
+            host: process.env.DB_HOST || '127.0.0.1',
+            port: Number(process.env.DB_PORT) || 3306,
+            user: process.env.DB_USER || 'u749853029_prouser',
+            password: process.env.DB_PASSWORD || 'M-husnain@393393',
+            database: process.env.DB_NAME || 'u749853029_pro',
+            connectTimeout: 5000,
+          });
+          const [rows] = await pool.query("SELECT 1 + 1 AS test_result");
+          res.end(JSON.stringify({
+            status: "success",
+            message: "Direct database test succeeded!",
+            serverTimestamp: new Date().toISOString(),
+            data: rows
+          }));
+        } catch (err) {
+          res.end(JSON.stringify({
+            status: "error",
+            message: "Direct database test failed",
+            serverTimestamp: new Date().toISOString(),
+            error: err.message,
+            stack: err.stack
+          }));
+        }
+        return;
+      }
+      
       // Serve static assets from dist/client
       const clientDir = path.join(__dirname, "dist", "client");
       // Prevent directory traversal
