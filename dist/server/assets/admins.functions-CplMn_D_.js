@@ -1,8 +1,9 @@
 import { d as createServerRpc, l as userRoles, t as db, u as users } from "./db-CCkpHSzc.js";
 import { t as createServerFn } from "./createServerFn-CIHAFgYl.js";
+import { createRequire } from "module";
 import { eq } from "drizzle-orm";
-import bcrypt from "bcryptjs";
 //#region src/lib/admins.functions.ts?tss-serverfn-split
+var bcrypt = createRequire(import.meta.url)("bcryptjs");
 var listAdmins_createServerFn_handler = createServerRpc({
 	id: "107006364cdee73930754d5e03e7d2892ae9886b96d2d356e1cd6474c0cabc22",
 	name: "listAdmins",

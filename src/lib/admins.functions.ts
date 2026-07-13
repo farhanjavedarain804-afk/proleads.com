@@ -2,7 +2,10 @@ import { createServerFn } from "@tanstack/react-start";
 import { db } from "../db";
 import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
-import bcrypt from "bcryptjs";
+import { createRequire } from "module";
+
+const _req = createRequire(import.meta.url);
+const bcrypt = _req("bcryptjs") as typeof import("bcryptjs");
 
 export const listAdmins = createServerFn({ method: "GET" }).handler(async () => {
   const roles = await db.select().from(schema.userRoles);
