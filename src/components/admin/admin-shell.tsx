@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { logout } from "@/lib/auth.functions";
 
 type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean; superOnly?: boolean };
 const NAV: NavItem[] = [
@@ -25,11 +26,19 @@ export function AdminShell() {
   const settings = useSiteSettings();
   const { data: admin } = useIsAdmin();
   const [open, setOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
 
   async function signOut() {
-    // Clear session and redirect
+    if (signingOut) return;
+    setSigningOut(true);
+    try {
+      await logout();
+    } catch {
+      // ignore — we always redirect
+    }
     toast.success("Signed out");
     navigate({ to: "/auth" });
+    setSigningOut(false);
   }
 
   return (
@@ -83,9 +92,10 @@ export function AdminShell() {
           </a>
           <button
             onClick={signOut}
-            className="mt-1 flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50"
+            disabled={signingOut}
+            className="mt-1 flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 disabled:opacity-50"
           >
-            <LogOut className="h-3.5 w-3.5" /> Sign out
+            <LogOut className="h-3.5 w-3.5" /> {signingOut ? "Signing out…" : "Sign out"}
           </button>
         </div>
       </aside>

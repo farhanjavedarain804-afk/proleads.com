@@ -1,7 +1,7 @@
 import { o as useSiteSettings } from "./use-admin-data-BX0OStFG.js";
 import { t as logo_default } from "./logo-DQUycLDj.js";
 import { r as SiteFooter } from "./site-footer-B8YXhaZD.js";
-import { t as checkAuth } from "./auth.functions-DqA0oBht.js";
+import { t as checkAuth } from "./auth.functions-CgQvNJ0h.js";
 import { useState } from "react";
 import { HeadContent, Link, Outlet, Scripts, createFileRoute, createRootRouteWithContext, createRouter, lazyRouteComponent, redirect, useRouter, useRouterState } from "@tanstack/react-router";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Menu, Phone, ShieldCheck, X } from "lucide-react";
 import { Toaster } from "sonner";
 //#region src/styles.css?url
-var styles_default = "/assets/styles-D1Q1OO9Y.css";
+var styles_default = "/assets/styles-DbY6nDYz.css";
 //#endregion
 //#region src/components/site-header.tsx
 var NAV = [
@@ -786,7 +786,7 @@ var Route$12 = createFileRoute("/contact")({
 });
 //#endregion
 //#region src/routes/auth.tsx
-var $$splitComponentImporter$11 = () => import("./auth-CGSmhhIk.js");
+var $$splitComponentImporter$11 = () => import("./auth-Bck3hH9H.js");
 var Route$11 = createFileRoute("/auth")({
 	head: () => ({ meta: [{ title: "Admin Sign In — ProLeadsGeneration" }, {
 		name: "robots",
@@ -799,15 +799,16 @@ var Route$11 = createFileRoute("/auth")({
 var $$splitComponentImporter$10 = () => import("./route-Di7iQBCH.js");
 var Route$10 = createFileRoute("/_authenticated")({
 	ssr: false,
-	beforeLoad: async () => {
+	beforeLoad: async ({ cause }) => {
 		try {
 			const auth = await checkAuth();
 			if (!auth || !auth.ok) throw redirect({ to: "/auth" });
 			return {
-				userId: auth.user.id,
-				email: auth.user.email
+				userId: auth.user?.id ?? null,
+				email: auth.user?.email ?? null
 			};
 		} catch (e) {
+			if (e?.isRedirect || e?._isRedirect || typeof e?.statusCode === "number") throw e;
 			throw redirect({ to: "/auth" });
 		}
 	},
@@ -894,7 +895,7 @@ var Route$9 = createFileRoute("/")({
 });
 //#endregion
 //#region src/routes/_authenticated/admin.tsx
-var $$splitComponentImporter$8 = () => import("./admin-BC_1Ezij.js");
+var $$splitComponentImporter$8 = () => import("./admin-BUkd6M0K.js");
 var Route$8 = createFileRoute("/_authenticated/admin")({
 	head: () => ({ meta: [{ title: "Admin — ProLeadsGeneration" }, {
 		name: "robots",

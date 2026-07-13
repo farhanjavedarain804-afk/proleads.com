@@ -1,4 +1,5 @@
 import { o as useSiteSettings, r as useIsAdmin } from "./use-admin-data-BX0OStFG.js";
+import { r as logout } from "./auth.functions-CgQvNJ0h.js";
 import { useState } from "react";
 import { Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { jsx, jsxs } from "react/jsx-runtime";
@@ -55,9 +56,16 @@ function AdminShell() {
 	const settings = useSiteSettings();
 	const { data: admin } = useIsAdmin();
 	const [open, setOpen] = useState(false);
+	const [signingOut, setSigningOut] = useState(false);
 	async function signOut() {
+		if (signingOut) return;
+		setSigningOut(true);
+		try {
+			await logout();
+		} catch {}
 		toast.success("Signed out");
 		navigate({ to: "/auth" });
+		setSigningOut(false);
 	}
 	return /* @__PURE__ */ jsxs("div", {
 		className: "min-h-screen bg-slate-50",
@@ -124,8 +132,13 @@ function AdminShell() {
 							}),
 							/* @__PURE__ */ jsxs("button", {
 								onClick: signOut,
-								className: "mt-1 flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50",
-								children: [/* @__PURE__ */ jsx(LogOut, { className: "h-3.5 w-3.5" }), " Sign out"]
+								disabled: signingOut,
+								className: "mt-1 flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 disabled:opacity-50",
+								children: [
+									/* @__PURE__ */ jsx(LogOut, { className: "h-3.5 w-3.5" }),
+									" ",
+									signingOut ? "Signing out…" : "Sign out"
+								]
 							})
 						]
 					})

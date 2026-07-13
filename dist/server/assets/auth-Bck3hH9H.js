@@ -1,5 +1,5 @@
 import { t as logo_default } from "./logo-DQUycLDj.js";
-import { n as login, t as checkAuth } from "./auth.functions-DqA0oBht.js";
+import { n as login, t as checkAuth } from "./auth.functions-CgQvNJ0h.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { jsx, jsxs } from "react/jsx-runtime";
@@ -7,32 +7,41 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { toast } from "sonner";
 //#region src/routes/auth.tsx?tsr-split=component
 function AuthPage() {
-	const navigate = useNavigate();
+	useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [checking, setChecking] = useState(true);
 	useEffect(() => {
 		checkAuth().then((auth) => {
-			if (auth?.ok) navigate({ to: "/admin" });
+			if (auth?.ok) window.location.href = "/admin";
+			else setChecking(false);
+		}).catch(() => {
+			setChecking(false);
 		});
-	}, [navigate]);
+	}, []);
 	async function onSubmit(e) {
 		e.preventDefault();
+		if (loading) return;
 		setLoading(true);
 		try {
 			if (!(await login({ data: {
 				email,
 				password
-			} }))?.ok) throw new Error("Invalid credentials");
-			toast.success("Signed in");
-			navigate({ to: "/admin" });
+			} }))?.ok) throw new Error("Login failed. Please check your credentials.");
+			toast.success("Signed in successfully!");
+			window.location.href = "/admin";
 		} catch (err) {
-			toast.error(err.message || "Sign in failed");
-		} finally {
+			const msg = typeof err?.message === "string" && err.message.length < 200 ? err.message : "Sign in failed. Please try again.";
+			toast.error(msg);
 			setLoading(false);
 		}
 	}
+	if (checking) return /* @__PURE__ */ jsx("div", {
+		className: "flex min-h-screen items-center justify-center bg-slate-100",
+		children: /* @__PURE__ */ jsx("div", { className: "h-8 w-8 animate-spin rounded-full border-2 border-brand border-t-transparent" })
+	});
 	return /* @__PURE__ */ jsxs("div", {
 		className: "relative min-h-screen overflow-hidden bg-slate-100 flex items-center justify-center px-4 py-12",
 		children: [
@@ -96,7 +105,7 @@ function AuthPage() {
 								}),
 								/* @__PURE__ */ jsx("p", {
 									className: "mt-6 text-center text-xs text-slate-400",
-									children: "use your admin credentials:"
+									children: "Enter your admin credentials:"
 								}),
 								/* @__PURE__ */ jsxs("form", {
 									onSubmit,
@@ -105,6 +114,7 @@ function AuthPage() {
 										/* @__PURE__ */ jsxs("div", {
 											className: "relative",
 											children: [/* @__PURE__ */ jsx(Mail, { className: "pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" }), /* @__PURE__ */ jsx("input", {
+												id: "admin-email",
 												type: "email",
 												required: true,
 												autoComplete: "email",
@@ -119,6 +129,7 @@ function AuthPage() {
 											children: [
 												/* @__PURE__ */ jsx(Lock, { className: "pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" }),
 												/* @__PURE__ */ jsx("input", {
+													id: "admin-password",
 													type: showPassword ? "text" : "password",
 													required: true,
 													minLength: 6,
@@ -140,10 +151,11 @@ function AuthPage() {
 										/* @__PURE__ */ jsx("div", {
 											className: "pt-3 flex justify-center",
 											children: /* @__PURE__ */ jsx("button", {
+												id: "admin-submit",
 												type: "submit",
 												disabled: loading,
 												className: "inline-flex items-center justify-center rounded-full bg-brand px-12 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand/90 disabled:opacity-50",
-												children: loading ? "Please wait…" : "Sign In"
+												children: loading ? "Signing in…" : "Sign In"
 											})
 										})
 									]
