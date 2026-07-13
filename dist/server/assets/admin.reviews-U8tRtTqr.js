@@ -1,4 +1,4 @@
-import { S as upsertReview, i as useReviews, p as deleteReview } from "./use-admin-data-DNgDV5Cr.js";
+import { S as upsertReview, i as useReviews, p as deleteReview } from "./use-admin-data-BX0OStFG.js";
 import { useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { useQueryClient } from "@tanstack/react-query";

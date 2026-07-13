@@ -1,7 +1,7 @@
-import { o as useSiteSettings } from "./use-admin-data-DNgDV5Cr.js";
+import { o as useSiteSettings } from "./use-admin-data-BX0OStFG.js";
 import { t as logo_default } from "./logo-DQUycLDj.js";
-import { r as SiteFooter } from "./site-footer-Dhi5ijDM.js";
-import { t as checkAuth } from "./auth.functions-DVwhI1yx.js";
+import { r as SiteFooter } from "./site-footer-B8YXhaZD.js";
+import { t as checkAuth } from "./auth.functions-DqA0oBht.js";
 import { useState } from "react";
 import { HeadContent, Link, Outlet, Scripts, createFileRoute, createRootRouteWithContext, createRouter, lazyRouteComponent, redirect, useRouter, useRouterState } from "@tanstack/react-router";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
@@ -339,7 +339,7 @@ function RootComponent() {
 }
 //#endregion
 //#region src/routes/why.tsx
-var $$splitComponentImporter$17 = () => import("./why-fpvHZkI1.js");
+var $$splitComponentImporter$17 = () => import("./why-Ct4BtdGO.js");
 var Route$18 = createFileRoute("/why")({
 	head: () => ({
 		meta: [
@@ -439,7 +439,7 @@ var Route$17 = createFileRoute("/sitemap.xml")({ server: { handlers: { GET: asyn
 } } } });
 //#endregion
 //#region src/routes/services.tsx
-var $$splitComponentImporter$16 = () => import("./services-C5GBoOtB.js");
+var $$splitComponentImporter$16 = () => import("./services-BU3dsZI4.js");
 var SERVICE_TRADES = [
 	{
 		name: "HVAC Repair & Installation",
@@ -558,7 +558,7 @@ var Route$16 = createFileRoute("/services")({
 });
 //#endregion
 //#region src/routes/reviews.tsx
-var $$splitComponentImporter$15 = () => import("./reviews-69sA3X8K.js");
+var $$splitComponentImporter$15 = () => import("./reviews-DcWq8R4v.js");
 var Route$15 = createFileRoute("/reviews")({
 	head: () => ({
 		meta: [
@@ -616,7 +616,7 @@ var Route$15 = createFileRoute("/reviews")({
 });
 //#endregion
 //#region src/routes/faq.tsx
-var $$splitComponentImporter$14 = () => import("./faq-Ch85GdNr.js");
+var $$splitComponentImporter$14 = () => import("./faq-HecBFI0F.js");
 var FAQ_SCHEMA_ITEMS = [
 	{
 		q: "Are your technicians licensed and insured?",
@@ -700,7 +700,7 @@ var Route$14 = createFileRoute("/faq")({
 });
 //#endregion
 //#region src/routes/coverage.tsx
-var $$splitComponentImporter$13 = () => import("./coverage-Bi6szuud.js");
+var $$splitComponentImporter$13 = () => import("./coverage-eEj5ewUz.js");
 var Route$13 = createFileRoute("/coverage")({
 	head: () => ({
 		meta: [
@@ -743,7 +743,7 @@ var Route$13 = createFileRoute("/coverage")({
 });
 //#endregion
 //#region src/routes/contact.tsx
-var $$splitComponentImporter$12 = () => import("./contact-CjM_G9uW.js");
+var $$splitComponentImporter$12 = () => import("./contact-CxeoGSOc.js");
 var Route$12 = createFileRoute("/contact")({
 	head: () => ({
 		meta: [
@@ -786,7 +786,7 @@ var Route$12 = createFileRoute("/contact")({
 });
 //#endregion
 //#region src/routes/auth.tsx
-var $$splitComponentImporter$11 = () => import("./auth-ClpopN6D.js");
+var $$splitComponentImporter$11 = () => import("./auth-CGSmhhIk.js");
 var Route$11 = createFileRoute("/auth")({
 	head: () => ({ meta: [{ title: "Admin Sign In — ProLeadsGeneration" }, {
 		name: "robots",
@@ -815,7 +815,7 @@ var Route$10 = createFileRoute("/_authenticated")({
 });
 //#endregion
 //#region src/routes/index.tsx
-var $$splitComponentImporter$9 = () => import("./routes-BJqd7QEs.js");
+var $$splitComponentImporter$9 = () => import("./routes-ChIN-PEq.js");
 var Route$9 = createFileRoute("/")({
 	head: () => ({
 		meta: [
@@ -894,7 +894,7 @@ var Route$9 = createFileRoute("/")({
 });
 //#endregion
 //#region src/routes/_authenticated/admin.tsx
-var $$splitComponentImporter$8 = () => import("./admin-ov4KLUtJ.js");
+var $$splitComponentImporter$8 = () => import("./admin-BC_1Ezij.js");
 var Route$8 = createFileRoute("/_authenticated/admin")({
 	head: () => ({ meta: [{ title: "Admin — ProLeadsGeneration" }, {
 		name: "robots",
@@ -904,35 +904,35 @@ var Route$8 = createFileRoute("/_authenticated/admin")({
 });
 //#endregion
 //#region src/routes/_authenticated/admin.index.tsx
-var $$splitComponentImporter$7 = () => import("./admin.index-Bz2OWhcd.js");
+var $$splitComponentImporter$7 = () => import("./admin.index-sbKrHIcX.js");
 var Route$7 = createFileRoute("/_authenticated/admin/")({ component: lazyRouteComponent($$splitComponentImporter$7, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.submissions.tsx
-var $$splitComponentImporter$6 = () => import("./admin.submissions-D8YHPj-6.js");
+var $$splitComponentImporter$6 = () => import("./admin.submissions-D5e-2DLd.js");
 var Route$6 = createFileRoute("/_authenticated/admin/submissions")({ component: lazyRouteComponent($$splitComponentImporter$6, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.settings.tsx
-var $$splitComponentImporter$5 = () => import("./admin.settings-B1oui566.js");
+var $$splitComponentImporter$5 = () => import("./admin.settings-BjvUzf07.js");
 var Route$5 = createFileRoute("/_authenticated/admin/settings")({ component: lazyRouteComponent($$splitComponentImporter$5, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.services.tsx
-var $$splitComponentImporter$4 = () => import("./admin.services-DbdT9lv3.js");
+var $$splitComponentImporter$4 = () => import("./admin.services-CAC5II5L.js");
 var Route$4 = createFileRoute("/_authenticated/admin/services")({ component: lazyRouteComponent($$splitComponentImporter$4, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.reviews.tsx
-var $$splitComponentImporter$3 = () => import("./admin.reviews-9DJR4LNb.js");
+var $$splitComponentImporter$3 = () => import("./admin.reviews-U8tRtTqr.js");
 var Route$3 = createFileRoute("/_authenticated/admin/reviews")({ component: lazyRouteComponent($$splitComponentImporter$3, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.faqs.tsx
-var $$splitComponentImporter$2 = () => import("./admin.faqs-D2bt_6SZ.js");
+var $$splitComponentImporter$2 = () => import("./admin.faqs-CmUCM1UN.js");
 var Route$2 = createFileRoute("/_authenticated/admin/faqs")({ component: lazyRouteComponent($$splitComponentImporter$2, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.coverage.tsx
-var $$splitComponentImporter$1 = () => import("./admin.coverage-DTEnRYtS.js");
+var $$splitComponentImporter$1 = () => import("./admin.coverage-BcSPHkd-.js");
 var Route$1 = createFileRoute("/_authenticated/admin/coverage")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.admins.tsx
-var $$splitComponentImporter = () => import("./admin.admins-ZRpZUT2m.js");
+var $$splitComponentImporter = () => import("./admin.admins-Ci9kp0f4.js");
 var Route = createFileRoute("/_authenticated/admin/admins")({
 	head: () => ({ meta: [{ title: "Admin Users — ProLeadsGeneration" }, {
 		name: "robots",

@@ -1,4 +1,4 @@
-import { f as deleteFaq, n as useFaqs, x as upsertFaq } from "./use-admin-data-DNgDV5Cr.js";
+import { f as deleteFaq, n as useFaqs, x as upsertFaq } from "./use-admin-data-BX0OStFG.js";
 import { useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { useQueryClient } from "@tanstack/react-query";
