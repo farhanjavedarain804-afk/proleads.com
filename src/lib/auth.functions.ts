@@ -101,9 +101,9 @@ export const login = createServerFn({ method: "POST" })
       const isMatch = await bcrypt.compare(data.password, user.passwordHash);
       if (!isMatch) throw new Error("Invalid credentials");
 
-      // Set cookie without the "secure" option so it works on both HTTP/HTTPS and environments behind reverse proxies
+      // Set BOTH HttpOnly cookie via H3, AND standard domain cookie without HttpOnly so client JS can read it.
       safeSetCookie("admin_session", user.id, {
-        httpOnly: true,
+        httpOnly: false, // Allows browser JS code to read and carry it
         path: "/",
         maxAge: 60 * 60 * 24 * 7, // 7 days
       });

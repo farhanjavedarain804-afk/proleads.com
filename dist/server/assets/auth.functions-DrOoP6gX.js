@@ -85,7 +85,7 @@ var login = createServerFn({ method: "POST" }).validator((data) => data).handler
 		if (!user.passwordHash) throw new Error("Invalid credentials");
 		if (!await bcrypt.compare(data.password, user.passwordHash)) throw new Error("Invalid credentials");
 		safeSetCookie("admin_session", user.id, {
-			httpOnly: true,
+			httpOnly: false,
 			path: "/",
 			maxAge: 3600 * 24 * 7
 		});

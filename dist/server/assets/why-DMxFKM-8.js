@@ -1,4 +1,4 @@
-import { a as STATS, i as PROCESS_STEPS, n as PageHeader, o as VALUES, t as CtaBanner } from "./site-footer-BAyCD3So.js";
+import { a as STATS, i as PROCESS_STEPS, n as PageHeader, o as VALUES, t as CtaBanner } from "./site-footer-DDqAP1-1.js";
 import { t as hero_default } from "./hero-DGrFqcoN.js";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { Award, BadgeCheck, CheckCircle2, Leaf, ShieldCheck, Star, Trophy, Users } from "lucide-react";
