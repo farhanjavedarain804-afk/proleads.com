@@ -147,7 +147,7 @@ function ReviewsPage() {
 									}),
 									/* @__PURE__ */ jsx("div", {
 										className: "text-[11px] font-semibold uppercase tracking-widest text-muted-foreground",
-										children: r.review_date
+										children: r.reviewDate
 									})
 								]
 							})

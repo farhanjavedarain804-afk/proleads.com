@@ -18,7 +18,7 @@ var hero_bg_mp4_asset_default = {
 //#endregion
 //#region src/routes/index.tsx?tsr-split=component
 function Landing() {
-	const { phone: PHONE, phone_tel: PHONE_TEL } = useSiteSettings();
+	const { phone: PHONE, phoneTel: PHONE_TEL } = useSiteSettings();
 	const { data: SERVICES = [] } = useServices();
 	const { data: REVIEWS = [] } = useReviews();
 	const { data: FAQS = [] } = useFaqs();
@@ -27,7 +27,7 @@ function Landing() {
 	const STATES = statesData.map((s) => s.name);
 	const CITIES = useMemo(() => {
 		const map = {};
-		for (const s of statesData) map[s.name] = citiesData.filter((c) => c.state_id === s.id).map((c) => c.name);
+		for (const s of statesData) map[s.name] = citiesData.filter((c) => c.stateId === s.id).map((c) => c.name);
 		return map;
 	}, [statesData, citiesData]);
 	const [state, setState] = useState("");
@@ -269,7 +269,7 @@ function Landing() {
 									className: "mb-5 flex items-center justify-between",
 									children: [/* @__PURE__ */ jsx("div", {
 										className: "grid h-14 w-14 place-items-center rounded-2xl bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground",
-										children: /* @__PURE__ */ jsx(getIcon(s.icon_name), { className: "h-7 w-7" })
+										children: /* @__PURE__ */ jsx(getIcon(s.iconName), { className: "h-7 w-7" })
 									}), /* @__PURE__ */ jsx("span", {
 										className: "rounded-full bg-navy/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-navy",
 										children: s.tag

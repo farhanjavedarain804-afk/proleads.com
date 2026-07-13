@@ -24,7 +24,7 @@ var CATEGORIES = [
 ];
 function ServicesPage() {
 	const { data: SERVICES = [] } = useServices();
-	const { phone: PHONE, phone_tel: PHONE_TEL } = useSiteSettings();
+	const { phone: PHONE, phoneTel: PHONE_TEL } = useSiteSettings();
 	return /* @__PURE__ */ jsxs(Fragment, { children: [
 		/* @__PURE__ */ jsx(PageHeader, {
 			eyebrow: "Our Expertise",
@@ -75,7 +75,7 @@ function ServicesPage() {
 								className: "mb-5 flex items-center justify-between",
 								children: [/* @__PURE__ */ jsx("div", {
 									className: "grid h-14 w-14 place-items-center rounded-2xl bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground",
-									children: /* @__PURE__ */ jsx(getIcon(s.icon_name), { className: "h-7 w-7" })
+									children: /* @__PURE__ */ jsx(getIcon(s.iconName), { className: "h-7 w-7" })
 								}), /* @__PURE__ */ jsx("span", {
 									className: "rounded-full bg-navy/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-navy",
 									children: s.tag
@@ -110,14 +110,14 @@ function ServicesPage() {
 									children: [
 										/* @__PURE__ */ jsx(Tag, { className: "h-3.5 w-3.5 text-brand" }),
 										" From ",
-										s.price_from
+										s.priceFrom
 									]
 								}), /* @__PURE__ */ jsxs("span", {
 									className: "inline-flex items-center gap-1 text-muted-foreground",
 									children: [
 										/* @__PURE__ */ jsx(Clock, { className: "h-3.5 w-3.5 text-brand" }),
 										" ",
-										s.response_time
+										s.responseTime
 									]
 								})]
 							}),

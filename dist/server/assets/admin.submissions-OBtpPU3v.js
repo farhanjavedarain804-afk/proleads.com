@@ -10,8 +10,8 @@ function AdminSubmissions() {
 	const qc = useQueryClient();
 	const [filter, setFilter] = useState("all");
 	const filtered = filter === "unread" ? subs.filter((s) => !s.isRead) : subs;
-	async function toggleRead(id, is_read) {
-		if (!is_read) try {
+	async function toggleRead(id, isRead) {
+		if (!isRead) try {
 			await markSubmissionRead({ data: { id } });
 			qc.invalidateQueries({ queryKey: ["contact_submissions"] });
 		} catch (e) {

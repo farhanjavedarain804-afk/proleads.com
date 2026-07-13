@@ -73,14 +73,14 @@ var REGIONS = [
 	}
 ];
 function CoveragePage() {
-	const { phone: PHONE, phone_tel: PHONE_TEL } = useSiteSettings();
+	const { phone: PHONE, phoneTel: PHONE_TEL } = useSiteSettings();
 	const { data: statesData = [] } = useStates();
 	const { data: citiesData = [] } = useCities();
 	const STATES = statesData.map((s) => s.name);
 	const CITIES = useMemo(() => {
 		const map = {};
 		for (const s of statesData) {
-			const list = citiesData.filter((c) => c.state_id === s.id).map((c) => c.name);
+			const list = citiesData.filter((c) => c.stateId === s.id).map((c) => c.name);
 			if (list.length) map[s.name] = list;
 		}
 		return map;

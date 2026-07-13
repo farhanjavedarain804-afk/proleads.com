@@ -115,7 +115,7 @@ function AdminDashboard() {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="truncate text-sm font-semibold text-navy">{s.name}</span>
-                    {!s.is_read && <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-brand-foreground">New</span>}
+                    {!s.isRead && <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-brand-foreground">New</span>}
                   </div>
                   <div className="truncate text-xs text-slate-500">
                     {s.service || "General"} · {s.city || s.email}

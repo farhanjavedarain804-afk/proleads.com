@@ -28,7 +28,7 @@ var OFFICES = [
 	}
 ];
 function ContactPage() {
-	const { phone: PHONE, phone_tel: PHONE_TEL, email: EMAIL, address: ADDRESS } = useSiteSettings();
+	const { phone: PHONE, phoneTel: PHONE_TEL, email: EMAIL, address: ADDRESS } = useSiteSettings();
 	const { data: services = [] } = useServices();
 	const [submitted, setSubmitted] = useState(false);
 	const [loading, setLoading] = useState(false);

@@ -158,7 +158,7 @@ function AdminDashboard() {
 								children: [/* @__PURE__ */ jsx("span", {
 									className: "truncate text-sm font-semibold text-navy",
 									children: s.name
-								}), !s.is_read && /* @__PURE__ */ jsx("span", {
+								}), !s.isRead && /* @__PURE__ */ jsx("span", {
 									className: "rounded-full bg-brand px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-brand-foreground",
 									children: "New"
 								})]

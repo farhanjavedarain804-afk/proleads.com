@@ -67,7 +67,7 @@ const CATEGORIES = [
 
 function ServicesPage() {
   const { data: SERVICES = [] } = useServices();
-  const { phone: PHONE, phone_tel: PHONE_TEL } = useSiteSettings();
+  const { phone: PHONE, phoneTel: PHONE_TEL } = useSiteSettings();
   return (
     <>
       <PageHeader
@@ -97,7 +97,7 @@ function ServicesPage() {
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s) => {
-            const Icon = getIcon(s.icon_name);
+            const Icon = getIcon(s.iconName);
             return (
             <article key={s.id} className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl">
               <div className="mb-5 flex items-center justify-between">
@@ -118,8 +118,8 @@ function ServicesPage() {
               </ul>
 
               <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-xs">
-                <span className="inline-flex items-center gap-1 font-semibold text-navy"><Tag className="h-3.5 w-3.5 text-brand" /> From {s.price_from}</span>
-                <span className="inline-flex items-center gap-1 text-muted-foreground"><Clock className="h-3.5 w-3.5 text-brand" /> {s.response_time}</span>
+                <span className="inline-flex items-center gap-1 font-semibold text-navy"><Tag className="h-3.5 w-3.5 text-brand" /> From {s.priceFrom}</span>
+                <span className="inline-flex items-center gap-1 text-muted-foreground"><Clock className="h-3.5 w-3.5 text-brand" /> {s.responseTime}</span>
               </div>
 
               <a href={`tel:${PHONE_TEL}`} className="mt-5 inline-flex items-center justify-center gap-1.5 rounded-full bg-brand px-4 py-2.5 text-xs font-semibold text-brand-foreground hover:brightness-110 transition">

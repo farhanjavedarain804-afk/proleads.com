@@ -125,7 +125,7 @@ function ReviewsPage() {
                   <div className="truncate font-display font-bold text-navy">{r.name}</div>
                   <div className="truncate text-xs text-muted-foreground">{r.city} · {r.service}</div>
                 </div>
-                <div className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">{r.review_date}</div>
+                <div className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">{r.reviewDate}</div>
               </figcaption>
             </figure>
           ))}

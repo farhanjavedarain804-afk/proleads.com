@@ -73,7 +73,7 @@ function FaqPage() {
   const [open, setOpen] = useState<number | null>(0);
   const [query, setQuery] = useState("");
   const { data: FAQS = [] } = useFaqs();
-  const { phone: PHONE, phone_tel: PHONE_TEL } = useSiteSettings();
+  const { phone: PHONE, phoneTel: PHONE_TEL } = useSiteSettings();
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

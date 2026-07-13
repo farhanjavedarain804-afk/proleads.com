@@ -49,7 +49,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
-  const { phone: PHONE, phone_tel: PHONE_TEL } = useSiteSettings();
+  const { phone: PHONE, phoneTel: PHONE_TEL } = useSiteSettings();
   const { data: SERVICES = [] } = useServices();
   const { data: REVIEWS = [] } = useReviews();
   const { data: FAQS = [] } = useFaqs();
@@ -59,7 +59,7 @@ function Landing() {
   const CITIES = useMemo(() => {
     const map: Record<string, string[]> = {};
     for (const s of statesData) {
-      map[s.name] = citiesData.filter((c) => c.state_id === s.id).map((c) => c.name);
+      map[s.name] = citiesData.filter((c) => c.stateId === s.id).map((c) => c.name);
     }
     return map;
   }, [statesData, citiesData]);
@@ -204,7 +204,7 @@ function Landing() {
         </div>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.slice(0, 6).map((s) => {
-            const Icon = getIcon(s.icon_name);
+            const Icon = getIcon(s.iconName);
             return (
             <article key={s.id} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl">
               <div className="mb-5 flex items-center justify-between">
