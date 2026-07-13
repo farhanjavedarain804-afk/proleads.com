@@ -2,7 +2,7 @@ import { d as createServerRpc, t as db, u as users } from "./db-CCkpHSzc.js";
 import { t as createServerFn } from "./createServerFn-CIHAFgYl.js";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
-import { deleteCookie, getCookie, setCookie } from "vinxi/http";
+import { deleteCookie, getCookie, getEvent, setCookie } from "vinxi/http";
 //#region src/lib/auth.functions.ts?tss-serverfn-split
 var checkAuth_createServerFn_handler = createServerRpc({
 	id: "c742807c24d8cf24409ab05ee479814cabfe4b92c8f6ea72847513d368654c35",
@@ -10,7 +10,12 @@ var checkAuth_createServerFn_handler = createServerRpc({
 	filename: "src/lib/auth.functions.ts"
 }, (opts) => checkAuth.__executeServer(opts));
 var checkAuth = createServerFn({ method: "GET" }).handler(checkAuth_createServerFn_handler, async () => {
-	const sessionUser = getCookie("admin_session");
+	const event = getEvent();
+	if (!event) return {
+		ok: false,
+		error: "No event context"
+	};
+	const sessionUser = getCookie(event, "admin_session");
 	if (!sessionUser) return {
 		ok: false,
 		error: "Not authenticated"
@@ -42,12 +47,14 @@ var login_createServerFn_handler = createServerRpc({
 	filename: "src/lib/auth.functions.ts"
 }, (opts) => login.__executeServer(opts));
 var login = createServerFn({ method: "POST" }).validator((data) => data).handler(login_createServerFn_handler, async ({ data }) => {
+	const event = getEvent();
+	if (!event) throw new Error("No event context");
 	const userResult = await db.select().from(users).where(eq(users.email, data.email)).limit(1);
 	if (!userResult.length) throw new Error("Invalid credentials");
 	const user = userResult[0];
 	if (!user.passwordHash) throw new Error("Invalid credentials");
 	if (!await bcrypt.compare(data.password, user.passwordHash)) throw new Error("Invalid credentials");
-	setCookie("admin_session", user.id, {
+	setCookie(event, "admin_session", user.id, {
 		httpOnly: true,
 		secure: true,
 		path: "/",
@@ -67,7 +74,8 @@ var logout_createServerFn_handler = createServerRpc({
 	filename: "src/lib/auth.functions.ts"
 }, (opts) => logout.__executeServer(opts));
 var logout = createServerFn({ method: "POST" }).handler(logout_createServerFn_handler, async () => {
-	deleteCookie("admin_session");
+	const event = getEvent();
+	if (event) deleteCookie(event, "admin_session");
 	return { ok: true };
 });
 //#endregion

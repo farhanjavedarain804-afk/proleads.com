@@ -2,11 +2,13 @@ import { createServerFn } from "@tanstack/react-start";
 import { db } from "../db";
 import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
-import { setCookie, getCookie, deleteCookie } from "vinxi/http";
+import { setCookie, getCookie, deleteCookie, getEvent } from "vinxi/http";
 import bcrypt from "bcryptjs";
 
 export const checkAuth = createServerFn({ method: "GET" }).handler(async () => {
-  const sessionUser = getCookie("admin_session");
+  const event = getEvent();
+  if (!event) return { ok: false, error: "No event context" };
+  const sessionUser = getCookie(event, "admin_session");
   if (!sessionUser) return { ok: false, error: "Not authenticated" };
   
   try {
@@ -23,6 +25,9 @@ export const checkAuth = createServerFn({ method: "GET" }).handler(async () => {
 export const login = createServerFn({ method: "POST" })
   .validator((data: any) => data)
   .handler(async ({ data }) => {
+    const event = getEvent();
+    if (!event) throw new Error("No event context");
+    
     const userResult = await db.select().from(schema.users).where(eq(schema.users.email, data.email)).limit(1);
     if (!userResult.length) throw new Error("Invalid credentials");
     
@@ -32,7 +37,7 @@ export const login = createServerFn({ method: "POST" })
     const isMatch = await bcrypt.compare(data.password, user.passwordHash);
     if (!isMatch) throw new Error("Invalid credentials");
     
-    setCookie("admin_session", user.id, {
+    setCookie(event, "admin_session", user.id, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
@@ -43,6 +48,9 @@ export const login = createServerFn({ method: "POST" })
   });
 
 export const logout = createServerFn({ method: "POST" }).handler(async () => {
-  deleteCookie("admin_session");
+  const event = getEvent();
+  if (event) {
+    deleteCookie(event, "admin_session");
+  }
   return { ok: true };
 });

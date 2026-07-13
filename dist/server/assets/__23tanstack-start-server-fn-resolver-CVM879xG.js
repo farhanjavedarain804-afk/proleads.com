@@ -46,7 +46,7 @@ var manifest = {
 	},
 	"452e3e86c202416aafc02a2b55b578ec43fec039a5a067befd21bb3ba85f5fd5": {
 		functionName: "logout_createServerFn_handler",
-		importer: () => import("./auth.functions-DwB6u_HV.js")
+		importer: () => import("./auth.functions-BwixocGj.js")
 	},
 	"51f2f2ca5e6afd05e31768d4ff6c43ab57820e6356c68debc313e7316f0bbe92": {
 		functionName: "upsertService_createServerFn_handler",
@@ -66,7 +66,7 @@ var manifest = {
 	},
 	"8df20e164b02e0f25b2f3ded46ca477870814adcef4eda397ae3f9dd4def87a1": {
 		functionName: "login_createServerFn_handler",
-		importer: () => import("./auth.functions-DwB6u_HV.js")
+		importer: () => import("./auth.functions-BwixocGj.js")
 	},
 	"9d1ce6359da5600e75c9fc5893e628ec925c1b4cd984ce46fca696f38e82b2e3": {
 		functionName: "getSubmissions_createServerFn_handler",
@@ -94,7 +94,7 @@ var manifest = {
 	},
 	"c742807c24d8cf24409ab05ee479814cabfe4b92c8f6ea72847513d368654c35": {
 		functionName: "checkAuth_createServerFn_handler",
-		importer: () => import("./auth.functions-DwB6u_HV.js")
+		importer: () => import("./auth.functions-BwixocGj.js")
 	},
 	"c87bc057a35726fe66126d62c5cd2ae652d64d3d78e17bd0b41bf1d573530828": {
 		functionName: "updateSubmission_createServerFn_handler",
