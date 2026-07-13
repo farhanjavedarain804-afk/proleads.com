@@ -5,6 +5,7 @@ import { createServer } from "node:http";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import fs from "node:fs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
@@ -21,6 +22,43 @@ async function start() {
 
     const server = createServer(async (req, res) => {
       const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+
+      // Serve static assets from dist/client
+      const clientDir = path.join(__dirname, "dist", "client");
+      // Prevent directory traversal
+      const cleanPath = path.normalize(url.pathname).replace(/^(\.\.[\/\\])+/, '');
+      const filePath = path.join(clientDir, cleanPath);
+      
+      try {
+        if (url.pathname !== "/" && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+          const ext = path.extname(filePath).toLowerCase();
+          const mimeTypes = {
+            ".css": "text/css",
+            ".js": "application/javascript",
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".svg": "image/svg+xml",
+            ".ico": "image/x-icon",
+            ".json": "application/json",
+            ".txt": "text/plain",
+            ".woff": "font/woff",
+            ".woff2": "font/woff2"
+          };
+          res.setHeader("Content-Type", mimeTypes[ext] || "application/octet-stream");
+          
+          if (url.pathname.startsWith("/assets/")) {
+            res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+          } else {
+            res.setHeader("Cache-Control", "public, max-age=3600");
+          }
+          
+          fs.createReadStream(filePath).pipe(res);
+          return;
+        }
+      } catch (e) {
+        // Not found or error reading, continue to SSR handler
+      }
 
       // Build a standard Request from Node's IncomingMessage
       const headers = new Headers();
