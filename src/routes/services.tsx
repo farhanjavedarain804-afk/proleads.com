@@ -110,7 +110,7 @@ function ServicesPage() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
 
               <ul className="mt-4 grid grid-cols-2 gap-y-1.5 gap-x-3 text-xs text-foreground/80">
-                {s.features.map((f) => (
+                {(Array.isArray(s.features) ? s.features : []).map((f) => (
                   <li key={f} className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-brand shrink-0" /> <span className="truncate">{f}</span>
                   </li>

@@ -59,7 +59,13 @@ function AdminServices() {
   }
 
   function openEdit(s: Service) {
-    setEditing({ ...s, featuresText: (s.features ?? []).join("\n") });
+    let arr: string[] = [];
+    if (Array.isArray(s.features)) {
+      arr = s.features;
+    } else if (typeof s.features === 'string') {
+      try { arr = JSON.parse(s.features); } catch(e) {}
+    }
+    setEditing({ ...s, featuresText: arr.join("\n") });
   }
 
   return (

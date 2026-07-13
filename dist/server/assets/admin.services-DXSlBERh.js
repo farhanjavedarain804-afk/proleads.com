@@ -55,9 +55,14 @@ function AdminServices() {
 		}
 	}
 	function openEdit(s) {
+		let arr = [];
+		if (Array.isArray(s.features)) arr = s.features;
+		else if (typeof s.features === "string") try {
+			arr = JSON.parse(s.features);
+		} catch (e) {}
 		setEditing({
 			...s,
-			featuresText: (s.features ?? []).join("\n")
+			featuresText: arr.join("\n")
 		});
 	}
 	return /* @__PURE__ */ jsxs("div", {

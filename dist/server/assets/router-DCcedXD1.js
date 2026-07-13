@@ -429,7 +429,7 @@ var Route$17 = createFileRoute("/sitemap.xml")({ server: { handlers: { GET: asyn
 } } } });
 //#endregion
 //#region src/routes/services.tsx
-var $$splitComponentImporter$16 = () => import("./services-B72-DAzu.js");
+var $$splitComponentImporter$16 = () => import("./services-DhqM4AvH.js");
 var SERVICE_TRADES = [
 	{
 		name: "HVAC Repair & Installation",
@@ -906,7 +906,7 @@ var $$splitComponentImporter$5 = () => import("./admin.settings-DoaXneQj.js");
 var Route$5 = createFileRoute("/_authenticated/admin/settings")({ component: lazyRouteComponent($$splitComponentImporter$5, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.services.tsx
-var $$splitComponentImporter$4 = () => import("./admin.services-Dgfhc0kC.js");
+var $$splitComponentImporter$4 = () => import("./admin.services-DXSlBERh.js");
 var Route$4 = createFileRoute("/_authenticated/admin/services")({ component: lazyRouteComponent($$splitComponentImporter$4, "component") });
 //#endregion
 //#region src/routes/_authenticated/admin.reviews.tsx

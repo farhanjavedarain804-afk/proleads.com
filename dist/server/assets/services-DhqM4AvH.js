@@ -91,7 +91,7 @@ function ServicesPage() {
 							}),
 							/* @__PURE__ */ jsx("ul", {
 								className: "mt-4 grid grid-cols-2 gap-y-1.5 gap-x-3 text-xs text-foreground/80",
-								children: s.features.map((f) => /* @__PURE__ */ jsxs("li", {
+								children: (Array.isArray(s.features) ? s.features : []).map((f) => /* @__PURE__ */ jsxs("li", {
 									className: "flex items-center gap-1.5",
 									children: [
 										/* @__PURE__ */ jsx(CheckCircle2, { className: "h-3.5 w-3.5 text-brand shrink-0" }),
