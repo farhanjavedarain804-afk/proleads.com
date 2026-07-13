@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Menu, Phone, ShieldCheck, X } from "lucide-react";
 import { Toaster } from "sonner";
 //#region src/styles.css?url
-var styles_default = "/assets/styles-C8sL2-TP.css";
+var styles_default = "/assets/styles-D1Q1OO9Y.css";
 //#endregion
 //#region src/components/site-header.tsx
 var NAV = [
@@ -161,7 +161,7 @@ function ErrorComponent({ error, reset }) {
 	return /* @__PURE__ */ jsx("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
 		children: /* @__PURE__ */ jsxs("div", {
-			className: "max-w-md text-center",
+			className: "max-w-xl text-center",
 			children: [
 				/* @__PURE__ */ jsx("h1", {
 					className: "text-xl font-semibold tracking-tight text-foreground",
@@ -170,6 +170,16 @@ function ErrorComponent({ error, reset }) {
 				/* @__PURE__ */ jsx("p", {
 					className: "mt-2 text-sm text-muted-foreground",
 					children: "Something went wrong on our end."
+				}),
+				/* @__PURE__ */ jsxs("div", {
+					className: "mt-4 rounded-lg bg-red-50 p-4 text-left text-xs font-mono text-red-700 overflow-auto max-h-60 border border-red-200",
+					children: [/* @__PURE__ */ jsx("p", {
+						className: "font-bold mb-1",
+						children: error?.message || String(error)
+					}), /* @__PURE__ */ jsx("pre", {
+						className: "whitespace-pre-wrap",
+						children: error?.stack
+					})]
 				}),
 				/* @__PURE__ */ jsx("div", {
 					className: "mt-6 flex flex-wrap justify-center gap-2",

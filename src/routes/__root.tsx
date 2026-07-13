@@ -42,11 +42,17 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
+      <div className="max-w-xl text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           This page didn't load
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">Something went wrong on our end.</p>
+        
+        <div className="mt-4 rounded-lg bg-red-50 p-4 text-left text-xs font-mono text-red-700 overflow-auto max-h-60 border border-red-200">
+          <p className="font-bold mb-1">{error?.message || String(error)}</p>
+          <pre className="whitespace-pre-wrap">{error?.stack}</pre>
+        </div>
+
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {

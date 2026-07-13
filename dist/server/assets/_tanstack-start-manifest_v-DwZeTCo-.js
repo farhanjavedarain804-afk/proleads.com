@@ -15,7 +15,7 @@ var tsrStartManifest = () => ({ routes: {
 			"/why"
 		],
 		preloads: [
-			"/assets/index-_xzqZrxc.js",
+			"/assets/index-Bv8gGt0f.js",
 			"/assets/jsx-runtime-Bx3i_E5L.js",
 			"/assets/createLucideIcon-BCaQIU84.js",
 			"/assets/useStore-C0Dub87x.js"
@@ -23,33 +23,33 @@ var tsrStartManifest = () => ({ routes: {
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-_xzqZrxc.js"
+			src: "/assets/index-Bv8gGt0f.js"
 		} }]
 	},
 	"/": {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/routes-CamO0nsE.js",
+			"/assets/routes-CNZnVqfE.js",
 			"/assets/arrow-right-YaJEdX4a.js",
 			"/assets/hero-CTvbb1-4.js",
 			"/assets/chevron-down-DFP1lO3S.js",
 			"/assets/circle-check-CLVuvm2t.js",
 			"/assets/quote-CXuXQkBd.js",
-			"/assets/icon-map-BdLz8nB5.js",
+			"/assets/icon-map-rnSZz_eQ.js",
 			"/assets/star-CfrZjd5L.js"
 		]
 	},
 	"/_authenticated": {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/route.tsx",
 		children: ["/_authenticated/admin"],
-		preloads: ["/assets/route-BV35ow6Z.js"]
+		preloads: ["/assets/route-z3AHtiAN.js"]
 	},
 	"/auth": {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/auth.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/auth-DNpJvcji.js",
+			"/assets/auth-CsbGn78f.js",
 			"/assets/eye-BH3H8Wdp.js",
 			"/assets/lock-DBru6qVP.js",
 			"/assets/mail-D2kcWDTa.js"
@@ -59,7 +59,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/contact.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/contact-IHkmG_x2.js",
+			"/assets/contact-CDlLd-Di.js",
 			"/assets/arrow-right-YaJEdX4a.js",
 			"/assets/circle-check-CLVuvm2t.js",
 			"/assets/mail-D2kcWDTa.js"
@@ -68,18 +68,18 @@ var tsrStartManifest = () => ({ routes: {
 	"/coverage": {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/coverage.tsx",
 		children: void 0,
-		preloads: ["/assets/coverage-CMio87M7.js", "/assets/trending-up-CfUTN2B9.js"]
+		preloads: ["/assets/coverage-7PPpG43K.js", "/assets/trending-up-CfUTN2B9.js"]
 	},
 	"/faq": {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/faq.tsx",
 		children: void 0,
-		preloads: ["/assets/faq-ZuQVHDqi.js", "/assets/chevron-down-DFP1lO3S.js"]
+		preloads: ["/assets/faq-DjhmpB_T.js", "/assets/chevron-down-DFP1lO3S.js"]
 	},
 	"/reviews": {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/reviews.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/reviews-DNRMIwXi.js",
+			"/assets/reviews-CRyYoGLY.js",
 			"/assets/arrow-right-YaJEdX4a.js",
 			"/assets/circle-check-CLVuvm2t.js",
 			"/assets/quote-CXuXQkBd.js",
@@ -90,17 +90,17 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/services.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/services-BGSCyW6C.js",
+			"/assets/services-DmV2Qob5.js",
 			"/assets/arrow-right-YaJEdX4a.js",
 			"/assets/circle-check-CLVuvm2t.js",
-			"/assets/icon-map-BdLz8nB5.js"
+			"/assets/icon-map-rnSZz_eQ.js"
 		]
 	},
 	"/why": {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/why.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/why-DvMqpQOF.js",
+			"/assets/why-BRlOjqRA.js",
 			"/assets/hero-CTvbb1-4.js",
 			"/assets/circle-check-CLVuvm2t.js",
 			"/assets/star-CfrZjd5L.js"
@@ -119,7 +119,7 @@ var tsrStartManifest = () => ({ routes: {
 			"/_authenticated/admin/"
 		],
 		preloads: [
-			"/assets/admin-DR_CYqDl.js",
+			"/assets/admin-TzdLBWJJ.js",
 			"/assets/circle-question-mark-tn4xxLfG.js",
 			"/assets/inbox-C1x-NMYK.js",
 			"/assets/shield-CK3m2aKO.js",
@@ -130,7 +130,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/admin.admins.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/admin.admins-_0WnTR62.js",
+			"/assets/admin.admins-BZ1nFAiM.js",
 			"/assets/key-round-SwjzTOVM.js",
 			"/assets/plus-CK68FQXg.js",
 			"/assets/trash-2-459p7ELi.js"
@@ -140,7 +140,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/admin.coverage.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/admin.coverage-BlLOB-cz.js",
+			"/assets/admin.coverage-DXTIxyFc.js",
 			"/assets/plus-CK68FQXg.js",
 			"/assets/trash-2-459p7ELi.js"
 		]
@@ -149,7 +149,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/admin.faqs.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/admin.faqs-CEWP_-uC.js",
+			"/assets/admin.faqs-CuKvo_v8.js",
 			"/assets/pencil-CGs-g5vw.js",
 			"/assets/plus-CK68FQXg.js",
 			"/assets/save-TcGwkhQN.js",
@@ -160,7 +160,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/admin.reviews.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/admin.reviews-D37noqr2.js",
+			"/assets/admin.reviews-C_17ho0k.js",
 			"/assets/pencil-CGs-g5vw.js",
 			"/assets/plus-CK68FQXg.js",
 			"/assets/save-TcGwkhQN.js",
@@ -171,11 +171,11 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/admin.services.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/admin.services-CzPkX0XR.js",
+			"/assets/admin.services-DfP5ihwE.js",
 			"/assets/pencil-CGs-g5vw.js",
 			"/assets/plus-CK68FQXg.js",
 			"/assets/save-TcGwkhQN.js",
-			"/assets/icon-map-BdLz8nB5.js",
+			"/assets/icon-map-rnSZz_eQ.js",
 			"/assets/trash-2-459p7ELi.js"
 		]
 	},
@@ -183,7 +183,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/admin.settings.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/admin.settings-CNs_6ShX.js",
+			"/assets/admin.settings-Cd5L806k.js",
 			"/assets/key-round-SwjzTOVM.js",
 			"/assets/lock-DBru6qVP.js",
 			"/assets/mail-D2kcWDTa.js",
@@ -194,7 +194,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/admin.submissions.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/admin.submissions-BZUxfVav.js",
+			"/assets/admin.submissions-D2sYYe1U.js",
 			"/assets/circle-check-CLVuvm2t.js",
 			"/assets/mail-D2kcWDTa.js",
 			"/assets/trash-2-459p7ELi.js"
@@ -204,7 +204,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/SAS/Desktop/source codes/proleads/src/routes/_authenticated/admin.index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/admin.index-CzKFl-ZE.js",
+			"/assets/admin.index-Bc_CE2Gz.js",
 			"/assets/eye-BH3H8Wdp.js",
 			"/assets/mail-D2kcWDTa.js",
 			"/assets/pencil-CGs-g5vw.js",
